@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "No prebuild stage required - all dependencies are satisfied already!"
+
+exit 0

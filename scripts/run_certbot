@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# The script for renewing the SSL certificates
+
+exec certbot --nginx renew > /proc/1/fd/1 2>/proc/1/fd/2

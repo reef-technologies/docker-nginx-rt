@@ -10,7 +10,7 @@ RUN set -ex \
         exit 1; \
     fi
 
-COPY ./ /modules/
+COPY modules /modules/
 
 RUN set -ex \
     && apk update \
@@ -75,7 +75,15 @@ RUN set -ex \
     && rm -rf /tmp/packages
 
 COPY entrypoint/*.sh /docker-entrypoint.d/
-
 COPY etc/nginx/* /etc/nginx/
+
+ARG certbot_cron_period="daily"
+
+COPY scripts /scripts/
+RUN chmod +x /scripts/run_certbot
+
+RUN mkdir -p /etc/periodic/${certbot_cron_period}
+RUN ln -s /scripts/run_certbot /etc/periodic/${certbot_cron_period}/run_certbot
+
 
 EXPOSE 80 443

@@ -47,6 +47,7 @@ Modules that are available by default:
 * [ngx_brotli](https://github.com/google/ngx_brotli) - Brotli compression
 * [ngx_http_headers_more_filter_module](https://github.com/openresty/headers-more-nginx-module) - Set, add, and clear arbitrary output headers in NGINX http servers
 * [ngx_http_vhost_traffic_status_module](https://github.com/vozlt/nginx-module-vts) - Nginx virtual host traffic status
+* [ngx_otel_module](https://nginx.org/en/docs/ngx_otel_module.html) - OpenTelemetry tracing (W3C trace context propagation, OTLP/gRPC exporter)
 
 License
 -------

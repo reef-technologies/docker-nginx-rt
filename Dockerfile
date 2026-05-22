@@ -1,8 +1,9 @@
-ARG BASE_IMAGE="nginx:1.24.0-alpine"
+# nginx:1.28.3-alpine
+ARG BASE_IMAGE="nginx@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236"
 
 FROM $BASE_IMAGE as builder
 
-ARG ENABLED_MODULES="brotli headers-more vts"
+ARG ENABLED_MODULES="brotli headers-more vts otel"
 
 RUN set -ex \
     && if [ "$ENABLED_MODULES" = "" ]; then \
@@ -15,12 +16,12 @@ COPY modules /modules/
 RUN set -ex \
     && apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
-               musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
+               musl-dev libxslt libxml2-utils make gcc unzip git \
                xz g++ coreutils \
     # allow abuild as a root user \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild \
-    && hg clone -r ${NGINX_VERSION}-${PKG_RELEASE} https://hg.nginx.org/pkg-oss/ \
+    && git clone --branch ${NGINX_VERSION}-${PKG_RELEASE} --depth 1 https://github.com/nginx/pkg-oss.git \
     && cd pkg-oss \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \

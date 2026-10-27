@@ -24,6 +24,14 @@ jobs:
       packages: write
 
     steps:
+      # Hosted runner images up to 20261023 still trust the compromised eMudhra
+      # intermediates; git and Docker send GITHUB_TOKEN over the runner's store.
+      # Drop this step once a fixed runner image is released (actions/runner-images#15018).
+      - name: Upgrade CA certificates
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --only-upgrade ca-certificates
+
       - name: Checkout repository
         uses: actions/checkout@v2
 

@@ -1,5 +1,5 @@
-# nginx:1.30.6-alpine
-ARG BASE_IMAGE="nginx@sha256:c59d1f8b1e0e42da75be973424cd72e23f7f8adfb54e982f4d1cd0216a5a5576"
+# nginx:1.30.7-alpine
+ARG BASE_IMAGE="nginx@sha256:bef154735288bc38d99fac41ae63730684bcc661503673a04a0f9bc526ba8598"
 
 FROM $BASE_IMAGE as builder
 
